@@ -11,23 +11,23 @@ export class ClientService {
     private apiUrl = 'http://localhost:8080/';
 
     getListClients(): Observable<Client[]> {
-        return this.http.get<Client[]>(`${this.apiUrl}clients`);
+        return this.http.get<Client[]>(`${this.apiUrl}client`);
     }
 
     getClientById(id: number): Observable<Client> {
-        return this.http.get<Client>(`${this.apiUrl}clients/${id}`);
+        return this.http.get<Client>(`${this.apiUrl}client/${id}`);
     }
 
     createClient(client: Client): Observable<Client> {
-        return this.http.post<Client>(`${this.apiUrl}clients`, client);
+        return this.http.post<Client>(`${this.apiUrl}client`, client);
     }
 
     updateClient(id: number, client: Client): Observable<Client> {
-        return this.http.put<Client>(`${this.apiUrl}clients/${id}`, client);
+        return this.http.put<Client>(`${this.apiUrl}client/${id}`, client);
     }
 
     deleteClient(id: number): Observable<void> {
-        return this.http.delete<void>(`${this.apiUrl}clients/${id}`);
+        return this.http.delete<void>(`${this.apiUrl}client/${id}`);
     }
 
 }
