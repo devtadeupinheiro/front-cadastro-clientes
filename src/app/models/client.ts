@@ -32,6 +32,6 @@ export interface Client {
     deliveryPhoneNumber: string;
     deliveryEmail: string;
     deliveryTime: string;
-    purchaseFrequency: string;
+    purchaseFrequency: number;
 
 }

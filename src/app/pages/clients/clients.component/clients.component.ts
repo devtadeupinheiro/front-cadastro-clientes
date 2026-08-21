@@ -57,7 +57,7 @@ export class ClientsComponent implements OnInit {
     deliveryPhoneNumber: ['', Validators.required],
     deliveryEmail: ['', [Validators.required, Validators.email]],
     deliveryTime: ['', Validators.required],
-    purchaseFrequency: ['', Validators.required]
+    purchaseFrequency: [0, Validators.required]
 
   });
 
@@ -118,7 +118,7 @@ export class ClientsComponent implements OnInit {
       deliveryPhoneNumber: this.clientForm.value.deliveryPhoneNumber || '',
       deliveryEmail: this.clientForm.value.deliveryEmail || '',
       deliveryTime: this.clientForm.value.deliveryTime || '',
-      purchaseFrequency: this.clientForm.value.purchaseFrequency || ''
+      purchaseFrequency: this.clientForm.value.purchaseFrequency || 0
     };
 
       if (this.clientSelectedId) {
