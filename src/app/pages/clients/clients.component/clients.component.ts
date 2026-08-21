@@ -9,6 +9,7 @@ Include the following import statements in your TypeScript file to resolve the e
 //import { Client } from '../../../models/client';
 import { ClientService } from '@services/client.service';
 import { Client } from '@models/client';
+import { DataCnpjDTO } from '@models/data-cnpj-dto';
 
 @Component({
   selector: 'app-clients.component',
@@ -192,4 +193,31 @@ export class ClientsComponent implements OnInit {
     this.resetForm();
   }
 
+  cnpjConsult(cnpj: any): void {
+    
+    if(!cnpj || cnpj === null || cnpj === undefined || typeof cnpj !== 'string' || cnpj.trim() === '') {
+      console.error('CNPJ is null or undefined');
+    }
+    
+    this.clientService.getDataCnpj(cnpj).subscribe(
+      (data: DataCnpjDTO) => {
+        console.log('CNPJ data:', data);
+        this.clientForm.patchValue({
+          cnpj: data.cnpj,
+          billingState: data.uf,
+          cep: data.cep,
+          billingDistrict: data.bairro,
+          billingHouseNumber: data.numero + ', ' + data.complemento,
+          billingCity: data.municipio,
+          billingStreet: data.logradouro,
+          companyName: data.razao_social,
+          tradingName: data.nome_fantasia,
+        });
+      },
+      (error: any) => {
+        console.error('Error fetching CNPJ data:', error);
+      }
+    );
+
+  }
 }

@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 import { Client } from '../models/client';
+import { DataCnpjDTO } from '../models/data-cnpj-dto';
 
 @Service()
 export class ClientService {
@@ -28,6 +29,10 @@ export class ClientService {
 
     deleteClient(id: number): Observable<void> {
         return this.http.delete<void>(`${this.apiUrl}client/${id}`);
+    }
+
+    getDataCnpj(cnpj: string): Observable<DataCnpjDTO> {
+        return this.http.get<DataCnpjDTO>(`${this.apiUrl}client/consulta-cnpj/${cnpj}`);
     }
 
 }

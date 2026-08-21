@@ -14,7 +14,7 @@
             <div class="place">
 
                 <label for="cnpj">CNPJ:</label>
-                <input type="text" id="cnpj" formControlName="cnpj" placeholder="Enter CNPJ">
+                <input type="text" (blur)="cnpjConsult(clientForm.value.cnpj)" id="cnpj" formControlName="cnpj" placeholder="Enter CNPJ">
 
                 @if (
                     clientForm.controls.cnpj.invalid && clientForm.controls.cnpj.touched
