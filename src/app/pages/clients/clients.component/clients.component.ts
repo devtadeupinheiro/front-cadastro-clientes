@@ -193,13 +193,38 @@ export class ClientsComponent implements OnInit {
     this.resetForm();
   }
 
+  cnpjSearch(cnpj: string): boolean {
+    this.clientService.getClientByCnpj(cnpj).subscribe(
+      (client: Client) => {
+        if (client) {
+          console.log('Client found:', client);
+          this.clientForm.patchValue(client);
+          return true;
+        } else {
+          console.log('Client not found');
+          return false;
+        }
+      },
+      (error: any) => {
+        console.error('Error searching client by CNPJ:', error);
+        return false;
+      }
+    );
+    return false; // Default return value if the observable hasn't emitted yet
+  }
+
   cnpjConsult(cnpj: any): void {
     
     if(!cnpj || cnpj === null || cnpj === undefined || typeof cnpj !== 'string' || cnpj.trim() === '') {
       console.error('CNPJ is null or undefined');
     }
-    
-    this.clientService.getDataCnpj(cnpj).subscribe(
+
+    let cnpjTest: boolean = this.cnpjSearch(cnpj);
+    if(!cnpjTest) {
+      alert('CNPJ already registered.');
+      console.error('CNPJ already registered.');
+    } else {
+      this.clientService.getDataCnpj(cnpj).subscribe(
       (data: DataCnpjDTO) => {
         console.log('CNPJ data:', data);
         this.clientForm.patchValue({
@@ -214,10 +239,11 @@ export class ClientsComponent implements OnInit {
           tradingName: data.nome_fantasia,
         });
       },
-      (error: any) => {
-        console.error('Error fetching CNPJ data:', error);
-      }
-    );
+        (error: any) => {
+          console.error('Error fetching CNPJ data:', error);
+        }
+      );       
+    }
 
   }
 }

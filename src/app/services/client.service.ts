@@ -16,7 +16,11 @@ export class ClientService {
     }
 
     getClientById(id: number): Observable<Client> {
-        return this.http.get<Client>(`${this.apiUrl}client/${id}`);
+        return this.http.get<Client>(`${this.apiUrl}client/id/${id}`);
+    }
+
+    getClientByCnpj(cnpj: string): Observable<Client> {
+        return this.http.get<Client>(`${this.apiUrl}client/cnpj/${cnpj}`);
     }
 
     createClient(client: Client): Observable<Client> {
