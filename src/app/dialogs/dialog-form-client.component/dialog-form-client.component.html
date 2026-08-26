@@ -1,0 +1,437 @@
+<section class="card">
+        <h2>
+            {{ dialogClientSelectedId ? 'Editar Cliente' : 'Criar Cliente' }}
+        </h2>
+
+        <form [formGroup]="dialogClientForm">
+
+            <!--CNPJ-->
+            <div class="place">
+
+                <label for="cnpj">CNPJ:</label>
+                <input type="text" (blur)="cnpjConsult(dialogClientForm.value.cnpj)" id="cnpj" formControlName="cnpj" placeholder="Enter CNPJ">
+
+                @if (
+                    dialogClientForm.controls.cnpj.invalid && dialogClientForm.controls.cnpj.touched
+                ) {
+                    <span class="error">CNPJ is required.</span>
+                }
+
+            </div>
+            <!--CEP-->
+            <div class="place">
+
+                <label for="cep">CEP:</label>
+                <input type="text" id="cep" formControlName="cep" placeholder="Enter CEP">
+
+                @if (
+                    dialogClientForm.controls.cep.invalid && dialogClientForm.controls.cep.touched
+                ) {
+                    <span class="error">CEP is required.</span>
+                }
+
+            </div>
+            <!--State Registration-->
+            <div class="place">
+
+                <label for="stateRegistration">State Registration:</label>
+                <input type="text" id="stateRegistration" formControlName="stateRegistration" placeholder="Enter State Registration">
+
+                @if (
+                    dialogClientForm.controls.stateRegistration.invalid && dialogClientForm.controls.stateRegistration.touched
+                ) {
+                    <span class="error">State Registration is required.</span>
+                }
+            </div>
+            <!--Company Name-->
+            <div class="place">
+
+                <label for="companyName">Company Name:</label>
+                <input type="text" id="companyName" formControlName="companyName" placeholder="Enter Company Name">
+
+                @if (
+                    dialogClientForm.controls.companyName.invalid && dialogClientForm.controls.companyName.touched
+                ) {
+                    <span class="error">Company Name is required.</span>
+                }
+            </div>
+            <!--Trading Name-->
+            <div class="place">
+
+                <label for="tradingName">Trading Name:</label>
+                <input type="text" id="tradingName" formControlName="tradingName" placeholder="Enter Trading Name">
+
+                @if (
+                    dialogClientForm.controls.tradingName.invalid && dialogClientForm.controls.tradingName.touched
+                ) {
+                    <span class="error">Trading Name is required.</span>
+                }
+            </div>
+            <!--Group-->
+            <div class="place">
+
+                <label for="group">Group:</label>
+                <input type="text" id="group" formControlName="group" placeholder="Enter Group">
+
+                @if (
+                    dialogClientForm.controls.group.invalid && dialogClientForm.controls.group.touched
+                ) {
+                    <span class="error">Group is required, try "Único" if no have group.</span>
+                }
+            </div>
+            <!--Billing Street-->
+            <div class="place">
+
+                <label for="billingStreet">Billing Street:</label>
+                <input type="text" id="billingStreet" formControlName="billingStreet" placeholder="Enter Billing Street">
+
+                @if (
+                    dialogClientForm.controls.billingStreet.invalid && dialogClientForm.controls.billingStreet.touched
+                ) {
+                    <span class="error">Billing Street is required.</span>
+                }
+            </div>
+            <!--Billing Number-->
+            <div class="place">
+
+                <label for="billingHouseNumber">Billing Number:</label>
+                <input type="text" id="billingHouseNumber" formControlName="billingHouseNumber" placeholder="Enter Billing Number">
+
+                @if (
+                    dialogClientForm.controls.billingHouseNumber.invalid && dialogClientForm.controls.billingHouseNumber.touched
+                ) {
+                    <span class="error">Billing Number is required.</span>
+                }
+            </div>
+            <!--Billing District-->
+            <div class="place">
+
+                <label for="billingDistrict">Billing District:</label>
+                <input type="text" id="billingDistrict" formControlName="billingDistrict" placeholder="Enter Billing District">
+
+                @if (
+                    dialogClientForm.controls.billingDistrict.invalid && dialogClientForm.controls.billingDistrict.touched
+                ) {
+                    <span class="error">Billing District is required.</span>
+                }
+            </div>
+            <!--Billing City-->
+            <div class="place">
+
+                <label for="billingCity">Billing City:</label>
+                <input type="text" id="billingCity" formControlName="billingCity" placeholder="Enter Billing City">
+
+                @if (
+                    dialogClientForm.controls.billingCity.invalid && dialogClientForm.controls.billingCity.touched
+                ) {
+                    <span class="error">Billing City is required.</span>
+                }
+            </div>
+            <!--Billing State-->
+            <div class="place">
+
+                <label for="billingState">Billing State:</label>
+                <input type="text" id="billingState" formControlName="billingState" placeholder="Enter Billing State">
+
+                @if (
+                    dialogClientForm.controls.billingState.invalid && dialogClientForm.controls.billingState.touched
+                ) {
+                    <span class="error">Billing State is required.</span>
+                }
+            </div>
+            <!--Billing Contact-->
+            <div class="place">
+
+                <label for="billingContact">Billing Contact:</label>
+                <input type="text" id="billingContact" formControlName="billingContact" placeholder="Enter Billing Contact">
+
+                @if (
+                    dialogClientForm.controls.billingContact.invalid && dialogClientForm.controls.billingContact.touched
+                ) {
+                    <span class="error">Billing Contact is required.</span>
+                }
+            </div>
+            <!--Billing Phone Number-->
+            <div class="place">
+
+                <label for="billingPhoneNumber">Billing Phone Number:</label>
+                <input type="text" id="billingPhoneNumber" formControlName="billingPhoneNumber" placeholder="Enter Billing Phone Number">
+
+                @if (
+                    dialogClientForm.controls.billingPhoneNumber.invalid && dialogClientForm.controls.billingPhoneNumber.touched
+                ) {
+                    <span class="error">Billing Phone Number is required.</span>
+                }
+            </div>
+            <!--Billing Email-->
+            <div class="place">
+
+                <label for="billingEmail">Billing Email:</label>
+                <input type="text" id="billingEmail" formControlName="billingEmail" placeholder="Enter Billing Email">
+
+                @if (
+                    dialogClientForm.controls.billingEmail.invalid && dialogClientForm.controls.billingEmail.touched
+                ) {
+                    <span class="error">Billing Email is required.</span>
+                }
+            </div>
+            <!--Business Street-->
+            <div class="place">
+
+                <label for="businessStreet">Business Street:</label>
+                <input type="text" id="businessStreet" formControlName="businessStreet" placeholder="Enter Business Street">
+
+                @if (
+                    dialogClientForm.controls.businessStreet.invalid && dialogClientForm.controls.businessStreet.touched
+                ) {
+                    <span class="error">Business Street is required.</span>
+                }
+            </div>
+            <!--Business Number-->
+            <div class="place">
+
+                <label for="businessHouseNumber">Business Number:</label>
+                <input type="text" id="businessHouseNumber" formControlName="businessHouseNumber" placeholder="Enter Business Number">
+
+                @if (
+                    dialogClientForm.controls.businessHouseNumber.invalid && dialogClientForm.controls.businessHouseNumber.touched
+                ) {
+                    <span class="error">Business Number is required.</span>
+                }
+            </div>
+            <!--Business District-->
+            <div class="place">
+
+                <label for="businessDistrict">Business District:</label>
+                <input type="text" id="businessDistrict" formControlName="businessDistrict" placeholder="Enter Business District">
+
+                @if (
+                    dialogClientForm.controls.businessDistrict.invalid && dialogClientForm.controls.businessDistrict.touched
+                ) {
+                    <span class="error">Business District is required.</span>
+                }
+            </div>
+            <!--Business City-->
+            <div class="place">
+
+                <label for="businessCity">Business City:</label>
+                <input type="text" id="businessCity" formControlName="businessCity" placeholder="Enter Business City">
+
+                @if (
+                    dialogClientForm.controls.businessCity.invalid && dialogClientForm.controls.businessCity.touched
+                ) {
+                    <span class="error">Business City is required.</span>
+                }
+            </div>
+            <!--Business State-->
+            <div class="place">
+
+                <label for="businessState">Business State:</label>
+                <input type="text" id="businessState" formControlName="businessState" placeholder="Enter Business State">
+
+                @if (
+                    dialogClientForm.controls.businessState.invalid && dialogClientForm.controls.businessState.touched
+                ) {
+                    <span class="error">Business State is required.</span>
+                }
+            </div>
+            <!--Business Contact-->
+            <div class="place">
+
+                <label for="businessContact">Business Contact:</label>
+                <input type="text" id="businessContact" formControlName="businessContact" placeholder="Enter Business Contact">
+
+                @if (
+                    dialogClientForm.controls.businessContact.invalid && dialogClientForm.controls.businessContact.touched
+                ) {
+                    <span class="error">Business Contact is required.</span>
+                }
+            </div>
+            <!--Business Phone Number-->
+            <div class="place">
+
+                <label for="businessPhoneNumber">Business Phone Number:</label>
+                <input type="text" id="businessPhoneNumber" formControlName="businessPhoneNumber" placeholder="Enter Business Phone Number">
+
+                @if (
+                    dialogClientForm.controls.businessPhoneNumber.invalid && dialogClientForm.controls.businessPhoneNumber.touched
+                ) {
+                    <span class="error">Business Phone Number is required.</span>
+                }
+            </div>
+            <!--Business Email-->
+            <div class="place">
+
+                <label for="businessEmail">Business Email:</label>
+                <input type="text" id="businessEmail" formControlName="businessEmail" placeholder="Enter Business Email">
+
+                @if (
+                    dialogClientForm.controls.businessEmail.invalid && dialogClientForm.controls.businessEmail.touched
+                ) {
+                    <span class="error">Business Email is required.</span>
+                }
+            </div>
+            <!--Delivery Street-->
+            <div class="place">
+
+                <label for="deliveryStreet">Delivery Street:</label>
+                <input type="text" id="deliveryStreet" formControlName="deliveryStreet" placeholder="Enter Delivery Street">
+
+                @if (
+                    dialogClientForm.controls.deliveryStreet.invalid && dialogClientForm.controls.deliveryStreet.touched
+                ) {
+                    <span class="error">Delivery Street is required.</span>
+                }
+            </div>
+            <!--Delivery Number-->
+            <div class="place">
+
+                <label for="deliveryHouseNumber">Delivery Number:</label>
+                <input type="text" id="deliveryHouseNumber" formControlName="deliveryHouseNumber" placeholder="Enter Delivery Number">
+
+                @if (
+                    dialogClientForm.controls.deliveryHouseNumber.invalid && dialogClientForm.controls.deliveryHouseNumber.touched
+                ) {
+                    <span class="error">Delivery Number is required.</span>
+                }
+            </div>
+            <!--Delivery District-->
+            <div class="place">
+
+                <label for="deliveryDistrict">Delivery District:</label>
+                <input type="text" id="deliveryDistrict" formControlName="deliveryDistrict" placeholder="Enter Delivery District">
+
+                @if (
+                    dialogClientForm.controls.deliveryDistrict.invalid && dialogClientForm.controls.deliveryDistrict.touched
+                ) {
+                    <span class="error">Delivery District is required.</span>
+                }
+            </div>
+            <!--Delivery City-->
+            <div class="place">
+
+                <label for="deliveryCity">Delivery City:</label>
+                <input type="text" id="deliveryCity" formControlName="deliveryCity" placeholder="Enter Delivery City">
+
+                @if (
+                    dialogClientForm.controls.deliveryCity.invalid && dialogClientForm.controls.deliveryCity.touched
+                ) {
+                    <span class="error">Delivery City is required.</span>
+                }
+            </div>
+            <!--Delivery State-->
+            <div class="place">
+
+                <label for="deliveryState">Delivery State:</label>
+                <input type="text" id="deliveryState" formControlName="deliveryState" placeholder="Enter Delivery State">
+
+                @if (
+                    dialogClientForm.controls.deliveryState.invalid && dialogClientForm.controls.deliveryState.touched
+                ) {
+                    <span class="error">Delivery State is required.</span>
+                }
+            </div>
+            <!--Delivery Contact-->
+            <div class="place">
+
+                <label for="deliveryContact">Delivery Contact:</label>
+                <input type="text" id="deliveryContact" formControlName="deliveryContact" placeholder="Enter Delivery Contact">
+
+                @if (
+                    dialogClientForm.controls.deliveryContact.invalid && dialogClientForm.controls.deliveryContact.touched
+                ) {
+                    <span class="error">Delivery Contact is required.</span>
+                }
+            </div>
+            <!--Delivery Phone Number-->
+            <div class="place">
+
+                <label for="deliveryPhoneNumber">Delivery Phone Number:</label>
+                <input type="text" id="deliveryPhoneNumber" formControlName="deliveryPhoneNumber" placeholder="Enter Delivery Phone Number">
+
+                @if (
+                    dialogClientForm.controls.deliveryPhoneNumber.invalid && dialogClientForm.controls.deliveryPhoneNumber.touched
+                ) {
+                    <span class="error">Delivery Phone Number is required.</span>
+                }
+            </div>
+            <!--Delivery Email-->
+            <div class="place">
+
+                <label for="deliveryEmail">Delivery Email:</label>
+                <input type="text" id="deliveryEmail" formControlName="deliveryEmail" placeholder="Enter Delivery Email">
+
+                @if (
+                    dialogClientForm.controls.deliveryEmail.invalid && dialogClientForm.controls.deliveryEmail.touched
+                ) {
+                    <span class="error">Delivery Email is required.</span>
+                }
+            </div>
+            <!--Delivery Time-->
+            <div class="place">
+
+                <label for="deliveryTime">Delivery Time:</label>
+                <input type="text" id="deliveryTime" formControlName="deliveryTime" placeholder="Enter Delivery Time">
+
+                @if (
+                    dialogClientForm.controls.deliveryTime.invalid && dialogClientForm.controls.deliveryTime.touched
+                ) {
+                    <span class="error">Delivery Time is required.</span>
+                }
+            </div>
+            <!--Purchase Frequency-->
+            <div class="place">
+
+                <label for="purchaseFrequency">Frequência de Compras (Meses):</label>
+                <!--
+                <input type="text" id="purchaseFrequency" formControlName="purchaseFrequency" placeholder="Enter Purchase Frequency">
+                -->
+                <select id="purchaseFrequency" formControlName="purchaseFrequency">
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                    <option value="6">6</option>
+                    <option value="7">7</option>
+                    <option value="8">8</option>
+                    <option value="9">9</option>
+                    <option value="10">10</option>
+                    <option value="11">11</option>
+                    <option value="12">12</option>
+                    <option value="13">13</option>
+                    <option value="14">14</option>
+                    <option value="15">15</option>
+                    <option value="16">16</option>
+                    <option value="17">17</option>
+                    <option value="18">18</option>
+                    <option value="19">19</option>
+                    <option value="20">20</option>
+                    <option value="21">21</option>
+                    <option value="22">22</option>
+                    <option value="23">23</option>
+                    <option value="24">24</option>
+                </select>
+
+                @if (
+                    dialogClientForm.controls.purchaseFrequency.invalid && dialogClientForm.controls.purchaseFrequency.touched
+                ) {
+                    <span class="error">Purchase Frequency is required.</span>
+                }
+            </div>
+
+            <div class="actions">
+
+                <button type="button" (click)="saveClient()">
+                    {{ dialogClientSelectedId ? 'Atualizar Cliente' : 'Criar Cliente' }}
+                </button>
+                <button type="button" (click)="resetForm()">Limpar Formulário</button>
+
+                @if (dialogClientSelectedId) {
+                    <button type="button" class="btn-cancel" (click)="cancelEdition()">Cancelar</button>
+                }
+
+            </div>
+        </form>
+
+    </section>

@@ -38,5 +38,6 @@ export class ClientService {
     getDataCnpj(cnpj: string): Observable<DataCnpjDTO> {
         return this.http.get<DataCnpjDTO>(`${this.apiUrl}client/consulta-cnpj/${cnpj}`);
     }
+    
 
 }
