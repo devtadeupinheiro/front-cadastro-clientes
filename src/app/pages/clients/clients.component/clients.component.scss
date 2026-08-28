@@ -5,12 +5,19 @@
     font-family: 'Arial', sans-serif;
 }
 
+#div-btn-new {
+    display: flex;
+    align-items: center;
+    width: 100%;
+}
+
 .card {
     background-color: rgb(255, 255, 255);
     border: 1px solid #ddd;
     border-radius: 8px;
     padding: 24px;
     margin-bottom: 30px;
+    margin-top: 15px;
 }
 
 .place {
@@ -36,11 +43,6 @@
     margin-top: 4px;
 }
 
-.actions {
-    display: flex;
-//    justify-content: flex-end;
-    gap: 10px;
-}
 
 button {
     padding: 9px 16px;
@@ -51,17 +53,20 @@ button {
     cursor: pointer;
 }
 
+#btn-new {
+    margin-left: auto;
+}
+
+.btn-actions {
+    margin: 0px 5px;
+}
+
+#btn-delete:hover {
+    background: red;
+}
+
 button:hover {
     background: #1565c0;
-}
-
-.btn-cancel {
-    background: #757575;
-}
-
-.btn-delete {
-    background: #d32f2f;
-    margin-left: 8px;
 }
 
 table {
@@ -71,7 +76,7 @@ table {
 
 th, td {
     padding: 12px;
-    text-align: left;
+    text-align: center;
     border-bottom: 1px solid #ddd;
 }
 

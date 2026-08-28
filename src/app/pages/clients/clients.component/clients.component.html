@@ -1,14 +1,12 @@
 <div class="container">
   
-    <h1>Cadastro de Clientes</h1>
-    <p>Todos os dados são obrigatórios.</p>
+    <h1>Clientes</h1>
 
-    <button mat-button (click)="openDialogFormClient()">+Novo</button>
-
+    <div id="div-btn-new">
+            <button type="button" id="btn-new" (click)="openDialogFormClient()">+Novo</button>
+    </div>
     
-
     <section class="card">
-        <h2>Lista de Clientes</h2>
 
         @if (clients.length === 0) {
 
@@ -35,8 +33,8 @@
                                 @if (!client.id === null || client.id === undefined) {
                                     <span class="error">Client ID is null.</span>
                                 } @else {
-                                <button type="button" (click)="editClient(client.id)">Editar</button>
-                                <button type="button" (click)="deleteClient(client.id)">Excluir</button>
+                                <button type="button" class="btn-actions" (click)="editClient(client.id)">Editar</button>
+                                <button type="button" class="btn-actions" id="btn-delete" (click)="deleteClient(client.id)">Excluir</button>
                                 }
                             </td>
                         </tr>

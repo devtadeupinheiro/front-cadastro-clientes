@@ -6,6 +6,9 @@ import { MatDialog } from '@angular/material/dialog';
 import { ClientService } from '@services/client.service';
 import { Client } from '@models/client';
 import { DataCnpjDTO } from '@models/data-cnpj-dto';
+import { catchError, map, Observable, of } from 'rxjs';
+
+import { isCNPJ } from 'validation-br';
 
 @Component({
   selector: 'app-client-form.component',
@@ -14,17 +17,14 @@ import { DataCnpjDTO } from '@models/data-cnpj-dto';
   styleUrl: './client-form.component.scss',
 })
 export class ClientFormComponent {
-
-
   protected fb = inject(FormBuilder);
   protected clientService = inject(ClientService);
   protected matDialog = inject(MatDialog);
 
-  clients: Client[] = []
+  clients: Client[] = [];
   clientSelectedId: number | null = null;
 
-    clientForm = this.fb.group({
-
+  clientForm = this.fb.group({
     cnpj: ['', Validators.required],
     cep: ['', Validators.required],
     stateRegistration: ['', Validators.required],
@@ -56,8 +56,7 @@ export class ClientFormComponent {
     deliveryPhoneNumber: ['', Validators.required],
     deliveryEmail: ['', [Validators.required, Validators.email]],
     deliveryTime: ['', Validators.required],
-    purchaseFrequency: [0, Validators.required]
-
+    purchaseFrequency: [0, Validators.required],
   });
 
   loadClients(): void {
@@ -67,17 +66,14 @@ export class ClientFormComponent {
       },
       (error: any) => {
         console.error('Error loading clients:', error);
-      }
+      },
     );
   }
 
   saveClient(): void {
-
     if (this.clientForm.invalid) {
-
       this.clientForm.markAllAsTouched();
       return;
-
     }
 
     //const clientData: Client = this.clientForm.value;
@@ -98,7 +94,7 @@ export class ClientFormComponent {
       billingEmail: this.clientForm.value.billingEmail || '',
       businessStreet: this.clientForm.value.businessStreet || '',
       businessHouseNumber: this.clientForm.value.businessHouseNumber || '',
-      businessDistrict  : this.clientForm.value.businessDistrict || '',
+      businessDistrict: this.clientForm.value.businessDistrict || '',
       businessCity: this.clientForm.value.businessCity || '',
       businessState: this.clientForm.value.businessState || '',
       businessContact: this.clientForm.value.businessContact || '',
@@ -113,34 +109,34 @@ export class ClientFormComponent {
       deliveryPhoneNumber: this.clientForm.value.deliveryPhoneNumber || '',
       deliveryEmail: this.clientForm.value.deliveryEmail || '',
       deliveryTime: this.clientForm.value.deliveryTime || '',
-      purchaseFrequency: this.clientForm.value.purchaseFrequency || 0
+      purchaseFrequency: this.clientForm.value.purchaseFrequency || 0,
     };
 
-      if (this.clientSelectedId) {
-        // Update existing client
-        this.clientService.updateClient(this.clientSelectedId, clientData).subscribe(
-          (updatedClient: Client) => {
-            console.log('Client updated:', updatedClient);
-            this.loadClients();
-            this.resetForm();
-          },
-          (error: any) => {
-            console.error('Error updating client:', error);
-          }
-        );
+    if (this.clientSelectedId) {
+      // Update existing client
+      this.clientService.updateClient(this.clientSelectedId, clientData).subscribe(
+        (updatedClient: Client) => {
+          console.log('Client updated:', updatedClient);
+          this.loadClients();
+          this.resetForm();
+        },
+        (error: any) => {
+          console.error('Error updating client:', error);
+        },
+      );
     } else {
-        // Create new client
-        this.clientService.createClient(clientData).subscribe(
-          (newClient: Client) => {
-            console.log('Client created:', newClient);
-            this.loadClients();
-            this.resetForm();
-          },
-          (error: any) => {
-            console.error('Error creating client:', error);
-          }
-        );
-      }
+      // Create new client
+      this.clientService.createClient(clientData).subscribe(
+        (newClient: Client) => {
+          console.log('Client created:', newClient);
+          this.loadClients();
+          this.resetForm();
+        },
+        (error: any) => {
+          console.error('Error creating client:', error);
+        },
+      );
+    }
   }
 
   editClient(clientId: number): void {
@@ -151,13 +147,12 @@ export class ClientFormComponent {
       },
       (error: any) => {
         console.error('Error loading client for edit:', error);
-      }
+      },
     );
   }
 
   deleteClient(clientId: number): void {
-
-    if(!clientId) {
+    if (!clientId) {
       console.error('Client ID is null or undefined');
       return;
     }
@@ -173,7 +168,7 @@ export class ClientFormComponent {
         },
         (error: any) => {
           console.error('Error deleting client:', error);
-        }
+        },
       );
     }
   }
@@ -187,57 +182,66 @@ export class ClientFormComponent {
     this.resetForm();
   }
 
-  cnpjSearch(cnpj: string): boolean {
-    this.clientService.getClientByCnpj(cnpj).subscribe(
-      (client: Client) => {
+  cnpjValidation(cnpj: string): boolean {
+    const cnpjValid = isCNPJ(cnpj);
+    console.log(cnpjValid);
+    return cnpjValid;
+  }
+
+  cnpjSearch(cnpj: string): Observable<boolean> {
+    return this.clientService.getClientByCnpj(cnpj).pipe(
+      map((client: Client) => {
         if (client) {
-          console.log('Client found:', client);
-          this.clientForm.patchValue(client);
           return true;
         } else {
-          console.log('Client not found');
+          console.log('Client not found'); //Apagar linha
           return false;
         }
-      },
-      (error: any) => {
-        console.error('Error searching client by CNPJ:', error);
-        return false;
-      }
+      }),
+      catchError((error) => {
+        console.error('Error searching client by Cnpj:', error);
+        return of(false);
+      }),
     );
-    return false; // Default return value if the observable hasn't emitted yet
   }
 
   cnpjConsult(cnpj: any): void {
-    
-    if(!cnpj || cnpj === null || cnpj === undefined || typeof cnpj !== 'string' || cnpj.trim() === '') {
+    if (
+      !cnpj ||
+      cnpj === null ||
+      cnpj === undefined ||
+      typeof cnpj !== 'string' ||
+      cnpj.trim() === ''
+    ) {
       console.error('CNPJ is null or undefined');
+      return;
     }
 
-    let cnpjTest: boolean = this.cnpjSearch(cnpj);
-    if(!cnpjTest) {
-      alert('CNPJ already registered.');
-      console.error('CNPJ already registered.');
-    } else {
-      this.clientService.getDataCnpj(cnpj).subscribe(
-      (data: DataCnpjDTO) => {
-        console.log('CNPJ data:', data);
-        this.clientForm.patchValue({
-          cnpj: data.cnpj,
-          billingState: data.uf,
-          cep: data.cep,
-          billingDistrict: data.bairro,
-          billingHouseNumber: data.numero + ', ' + data.complemento,
-          billingCity: data.municipio,
-          billingStreet: data.logradouro,
-          companyName: data.razao_social,
-          tradingName: data.nome_fantasia,
+    this.cnpjValidation(cnpj); //COLOCAR UM ALERT SE O CNPJ FOR INVALIDO E INTERROMPER O CODIGO
+
+    this.cnpjSearch(cnpj).subscribe((cnpjTest: boolean) => {
+      if (cnpjTest) {
+        alert('CNPJ já cadastrado!');
+      } else {
+        this.clientService.getDataCnpj(cnpj).subscribe({
+          next: (data: DataCnpjDTO) => {
+            this.clientForm.patchValue({
+              cnpj: data.cnpj,
+              billingState: data.uf,
+              cep: data.cep,
+              billingDistrict: data.bairro,
+              billingHouseNumber: data.numero + ', ' + data.complemento,
+              billingCity: data.municipio,
+              billingStreet: data.logradouro,
+              companyName: data.razao_social,
+              tradingName: data.nome_fantasia,
+            });
+          },
+          error: (error: any) => {
+            console.error('Error fetching CNPJ data:', error);
+          },
         });
-      },
-        (error: any) => {
-          console.error('Error fetching CNPJ data:', error);
-        }
-      );       
-    }
+      }
+    });
   }
-
 }

@@ -9,7 +9,7 @@
             <div class="place">
 
                 <label for="cnpj">CNPJ:</label>
-                <input type="text" (blur)="cnpjConsult(dialogClientForm.value.cnpj)" id="cnpj" formControlName="cnpj" placeholder="Enter CNPJ">
+                <input type="text" (blur)="cnpjConsult(dialogClientForm.value.cnpj)" id="cnpj" formControlName="cnpj" placeholder="Preencha o CNPJ">
 
                 @if (
                     dialogClientForm.controls.cnpj.invalid && dialogClientForm.controls.cnpj.touched
@@ -429,6 +429,8 @@
 
                 @if (dialogClientSelectedId) {
                     <button type="button" class="btn-cancel" (click)="cancelEdition()">Cancelar</button>
+                } @else {
+                    <button type="button" class="btn-cancel" (click)="closeMatDialog()">Fechar</button>
                 }
 
             </div>

@@ -15,9 +15,8 @@ export class DialogFormClientComponent extends ClientFormComponent {
 
   dialogClientForm = this.clientForm;
 
-  override cancelEdition(): void {
+  cancelEditionDialog(): void {
     this.cancelEdition();
-    this.matDialog.closeAll();
   }
 
   override saveClient(): void {
@@ -35,12 +34,16 @@ export class DialogFormClientComponent extends ClientFormComponent {
     this.matDialog.closeAll();
   }
 
-  override cnpjConsult(cnpj: any): void {
+  cnpjConsultDialog(cnpj: any): void {
     this.cnpjConsult(cnpj);
   }
 
   override resetForm(): void {
     this.resetForm();
+  }
+
+  closeMatDialog() {
+    this.matDialog.closeAll();
   }
 
 }
