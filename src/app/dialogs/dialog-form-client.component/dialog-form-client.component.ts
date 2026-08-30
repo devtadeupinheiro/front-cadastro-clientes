@@ -10,7 +10,6 @@ import { ClientFormComponent } from '@app/shared/client-form.component/client-fo
   styleUrl: './dialog-form-client.component.scss',
 })
 export class DialogFormClientComponent extends ClientFormComponent {
-
   dialogClientSelectedId = this.clientSelectedId;
 
   dialogClientForm = this.clientForm;
@@ -39,11 +38,10 @@ export class DialogFormClientComponent extends ClientFormComponent {
   }
 
   override resetForm(): void {
-    this.resetForm();
+    this.dialogClientForm.reset();
   }
 
   closeMatDialog() {
     this.matDialog.closeAll();
   }
-
 }

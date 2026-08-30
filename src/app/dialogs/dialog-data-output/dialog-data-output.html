@@ -1,0 +1,14 @@
+<div class="container">
+    <section class="card">
+        <button type="button" (click)="funcaoTeste()">OK</button>
+        @if (clientData) {
+            <ul>
+                @for (client of clientData | keyvalue; track client.key) {
+                    <li>
+                        <strong>{{ client.key}}:</strong> {{ client.value }}
+                    </li>
+                }
+            </ul>
+        }
+    </section>
+</div>

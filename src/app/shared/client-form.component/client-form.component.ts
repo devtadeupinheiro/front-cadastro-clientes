@@ -57,6 +57,7 @@ export class ClientFormComponent {
     deliveryEmail: ['', [Validators.required, Validators.email]],
     deliveryTime: ['', Validators.required],
     purchaseFrequency: [0, Validators.required],
+    lastBuy: ['', Validators.required],
   });
 
   loadClients(): void {
@@ -110,6 +111,7 @@ export class ClientFormComponent {
       deliveryEmail: this.clientForm.value.deliveryEmail || '',
       deliveryTime: this.clientForm.value.deliveryTime || '',
       purchaseFrequency: this.clientForm.value.purchaseFrequency || 0,
+      lastBuy: this.clientForm.value.lastBuy || '',
     };
 
     if (this.clientSelectedId) {
@@ -138,6 +140,8 @@ export class ClientFormComponent {
       );
     }
   }
+
+  visualizateData(clientId: number): void {}
 
   editClient(clientId: number): void {
     this.clientSelectedId = clientId;
@@ -184,7 +188,6 @@ export class ClientFormComponent {
 
   cnpjValidation(cnpj: string): boolean {
     const cnpjValid = isCNPJ(cnpj);
-    console.log(cnpjValid);
     return cnpjValid;
   }
 
@@ -217,11 +220,17 @@ export class ClientFormComponent {
       return;
     }
 
-    this.cnpjValidation(cnpj); //COLOCAR UM ALERT SE O CNPJ FOR INVALIDO E INTERROMPER O CODIGO
+    const cnpjValidationTest: boolean = this.cnpjValidation(cnpj);
+    if (!cnpjValidationTest) {
+      alert('CNPJ inválido, tente novamente');
+      console.log('CNPJ inválido');
+      return;
+    }
 
     this.cnpjSearch(cnpj).subscribe((cnpjTest: boolean) => {
       if (cnpjTest) {
         alert('CNPJ já cadastrado!');
+        this.resetForm();
       } else {
         this.clientService.getDataCnpj(cnpj).subscribe({
           next: (data: DataCnpjDTO) => {

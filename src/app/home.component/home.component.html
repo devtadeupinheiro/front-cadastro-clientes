@@ -1,1 +1,47 @@
+
+<div class="container">
+
+    <section class="card">
+        <h1>Olá <Strong>'USUÁRIO'</Strong>,</h1>
+        <h3>você deveria visitar estes clientes:</h3>
+
+        @if (clients.length === 0) {
+
+            <p>Aguardando você cadastrar os seus clientes.</p>
+            <button type="button" class="btn-actions" (click)="loadClientsNextBuy()">ok</button>
+
+        } @else {
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>Nome Fantasia</th>
+                        <th>Frequência</th>
+                        <th>Última Compra</th>
+                        <th>Ações</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @for (client of clients; track client.id) {
+                        <tr>
+                            <td>{{ client.tradingName }}</td>
+                            <td>{{ client.purchaseFrequency }} meses</td>
+                            <td>{{ client.lastBuy }}</td>
+                            <td>
+                                @if (!client.id === null || client.id === undefined) {
+                                    <span class="error">Client ID is null.</span>
+                                } @else {
+                                <button type="button" class="btn-actions" (click)="openDialogDataOutput(client.id)">Visualizar</button>
+                                }
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>       
+        }
+
+    </section>
+
+</div>
+
 <router-outlet></router-outlet>
