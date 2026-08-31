@@ -1,17 +1,7 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
 
-/*
-Include the following import statements in your TypeScript file to resolve the errors related to 'ClientService' and 'Client':
-*/
-//import { ClientService } from '../../../services/client.service';
-//import { Client } from '../../../models/client';
-//import { ClientService } from '@services/client.service';
-//import { Client } from '@models/client';
-//import { DataCnpjDTO } from '@models/data-cnpj-dto';
-
-//import { MatDialog } from '@angular/material/dialog';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
 import { ClientFormComponent } from '@app/shared/client-form.component/client-form.component';
@@ -24,7 +14,6 @@ import { DialogFormClientComponent } from '@app/dialogs/dialog-form-client.compo
   styleUrl: './clients.component.scss',
 })
 export class ClientsComponent extends ClientFormComponent implements OnInit {
-
   ngOnInit(): void {
     this.loadClients();
   }
@@ -35,7 +24,4 @@ export class ClientsComponent extends ClientFormComponent implements OnInit {
       height: '800px',
     });
   }
-
-
-  
 }

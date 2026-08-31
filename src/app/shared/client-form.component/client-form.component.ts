@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectorRef, Component } from '@angular/core';
 import { inject } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
@@ -20,6 +20,7 @@ export class ClientFormComponent {
   protected fb = inject(FormBuilder);
   protected clientService = inject(ClientService);
   protected matDialog = inject(MatDialog);
+  protected cdr = inject(ChangeDetectorRef);
 
   clients: Client[] = [];
   clientSelectedId: number | null = null;
@@ -64,6 +65,7 @@ export class ClientFormComponent {
     this.clientService.getListClients().subscribe(
       (clients: Client[]) => {
         this.clients = clients;
+        this.cdr.detectChanges();
       },
       (error: any) => {
         console.error('Error loading clients:', error);
@@ -77,7 +79,6 @@ export class ClientFormComponent {
       return;
     }
 
-    //const clientData: Client = this.clientForm.value;
     const clientData: Client = {
       cnpj: this.clientForm.value.cnpj || '',
       cep: this.clientForm.value.cep || '',
@@ -140,8 +141,6 @@ export class ClientFormComponent {
       );
     }
   }
-
-  visualizateData(clientId: number): void {}
 
   editClient(clientId: number): void {
     this.clientSelectedId = clientId;

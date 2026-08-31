@@ -13,12 +13,12 @@
     margin-bottom: 30px;
 }
 
-.error {
-    color: red;
-    font-size: 13px;
-    margin-top: 4px;
-}
 
+#div-btn {
+    display: flex;
+    align-items: end;
+    width: 100%;
+}
 
 button {
     padding: 9px 16px;
@@ -27,20 +27,22 @@ button {
     background: #1976d2;
     color: white;
     cursor: pointer;
+    margin-left: auto;
+}
+
+.btn-close:hover {
+    background: red;
 }
 
 button:hover {
     background: #1565c0;
 }
 
-.actions {
-    display: flex;
-//    justify-content: flex-end;
-    gap: 10px;
-}
 
-.btn-cancel {
-    background: #757575;
+ul {
+    list-style-type: none;
+    padding: 0px;
+    margin: 0px;
 }
 
 .footer {

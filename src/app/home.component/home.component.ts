@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectorRef, Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { OnInit } from '@angular/core';
 import { inject } from '@angular/core';
@@ -16,6 +16,7 @@ import { DialogDataOutput } from '@app/dialogs/dialog-data-output/dialog-data-ou
 export class HomeComponent implements OnInit {
   protected clientService = inject(ClientService);
   protected matDialog = inject(MatDialog);
+  protected cdr = inject(ChangeDetectorRef);
 
   clients: Client[] = [];
 
@@ -26,7 +27,7 @@ export class HomeComponent implements OnInit {
   openDialogDataOutput(client: number) {
     this.matDialog.open(DialogDataOutput, {
       width: '600px',
-      height: '800px',
+      height: '395px',
       data: { idClient: client },
     });
   }
@@ -35,6 +36,7 @@ export class HomeComponent implements OnInit {
     this.clientService.getNextBuy().subscribe(
       (clients: Client[]) => {
         this.clients = clients;
+        this.cdr.detectChanges();
       },
       (error: any) => {
         console.error('Error loading clients:', error);

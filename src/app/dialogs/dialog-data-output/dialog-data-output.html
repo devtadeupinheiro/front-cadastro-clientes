@@ -1,14 +1,19 @@
 <div class="container">
     <section class="card">
-        <button type="button" (click)="funcaoTeste()">OK</button>
-        @if (clientData) {
             <ul>
-                @for (client of clientData | keyvalue; track client.key) {
-                    <li>
-                        <strong>{{ client.key}}:</strong> {{ client.value }}
-                    </li>
-                }
+                <li ><strong>Nome: </strong>{{clientData?.tradingName}}</li>
+                <li><strong>CNPJ: </strong>{{clientData?.cnpj}}</li>
+                <li><strong>Razão Social: </strong>{{clientData?.companyName}}</li>
+                <li><strong>Grupo: </strong>{{clientData?.group}}</li>
+                <li><strong>Contato: </strong>{{clientData?.businessContact}}</li>
+                <li><strong>Telefone: </strong>{{clientData?.businessPhoneNumber}}</li>
+                <li><strong>Email: </strong>{{clientData?.businessEmail}}</li>
+                <li><strong>Endereço: </strong>{{clientData?.businessAdress}}</li>
+                <li><strong>Última Compra: </strong>{{clientData?.lastBuy}}</li>
+                <li><strong>Frequência de Compra: </strong>{{clientData?.purchaseFrequency}} Meses</li>
             </ul>
-        }
     </section>
+    <div id="div-btn"> 
+        <button type="button" class="btn-close" (click)="closeDialog()">Fechar</button>
+    </div>
 </div>

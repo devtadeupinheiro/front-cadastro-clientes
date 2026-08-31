@@ -1,18 +1,21 @@
-import { KeyValuePipe } from '@angular/common';
-import { Component, Inject, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, Inject, OnInit, inject } from '@angular/core';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { Client } from '@models/client';
+import { ClientResumeOutput } from '@models/output/client-resume-output';
 import { ClientService } from '@services/client.service';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-dialog-data-output',
-  imports: [KeyValuePipe],
+  imports: [],
   templateUrl: './dialog-data-output.html',
   styleUrl: './dialog-data-output.scss',
 })
 export class DialogDataOutput implements OnInit {
-  clientData: Client | null = null;
+  clientData: ClientResumeOutput | null = null;
   clientSelectedId: number;
+
+  protected matDialog = inject(MatDialog);
+  protected cdr = inject(ChangeDetectorRef);
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
@@ -22,12 +25,13 @@ export class DialogDataOutput implements OnInit {
   }
 
   ngOnInit(): void {
-    this.clientService.getClientById(this.clientSelectedId).subscribe((dados) => {
+    this.clientService.getClientResumeOutputById(this.clientSelectedId).subscribe((dados) => {
       this.clientData = dados;
+      this.cdr.detectChanges();
     });
   }
 
-  funcaoTeste() {
-    console.log(this.data);
+  closeDialog() {
+    this.matDialog.closeAll();
   }
 }

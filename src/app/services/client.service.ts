@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 
 import { Client } from '../models/client';
 import { DataCnpjDTO } from '../models/data-cnpj-dto';
+import { ClientResumeOutput } from '@models/output/client-resume-output';
 
 @Service()
 export class ClientService {
@@ -16,6 +17,10 @@ export class ClientService {
 
   getClientById(id: number): Observable<Client> {
     return this.http.get<Client>(`${this.apiUrl}client/id/${id}`);
+  }
+
+  getClientResumeOutputById(id: number): Observable<ClientResumeOutput> {
+    return this.http.get<ClientResumeOutput>(`${this.apiUrl}client/id/${id}`);
   }
 
   getClientByCnpj(cnpj: string): Observable<Client> {
