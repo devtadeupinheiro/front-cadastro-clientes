@@ -379,45 +379,72 @@
                     <span class="error">Delivery Time is required.</span>
                 }
             </div>
+            <!--Last Buy-->
+            <div class="place" >
+                
+                <label>Última Compra</label>
+                <section id="lastBuy">
+                    <input matInput [matDatepicker]="dp" [formControl]="dateControl" [max]="maxDate" readonly (click)="dp.open()" style="cursor: pointer;">
+                    <mat-datepicker-toggle matSuffix [for]="dp"></mat-datepicker-toggle>
+                    <mat-datepicker #dp
+                                    startView="year"
+                                    (monthSelected)="chosenMonthHandler($event, dp)">
+                    </mat-datepicker>
+                </section>
+
+                @if (
+                    dialogClientForm.controls.lastBuy.invalid && dialogClientForm.controls.lastBuy.touched
+                ) {
+                    <span class="error">Last Buy is required.</span>
+                }
+            </div>
             <!--Purchase Frequency-->
             <div class="place">
 
                 <label for="purchaseFrequency">Frequência de Compras (Meses):</label>
-                <!--
-                <input type="text" id="purchaseFrequency" formControlName="purchaseFrequency" placeholder="Enter Purchase Frequency">
-                -->
-                <select id="purchaseFrequency" formControlName="purchaseFrequency">
-                    <option value="1">1</option>
-                    <option value="2">2</option>
-                    <option value="3">3</option>
-                    <option value="4">4</option>
-                    <option value="5">5</option>
-                    <option value="6">6</option>
-                    <option value="7">7</option>
-                    <option value="8">8</option>
-                    <option value="9">9</option>
-                    <option value="10">10</option>
-                    <option value="11">11</option>
-                    <option value="12">12</option>
-                    <option value="13">13</option>
-                    <option value="14">14</option>
-                    <option value="15">15</option>
-                    <option value="16">16</option>
-                    <option value="17">17</option>
-                    <option value="18">18</option>
-                    <option value="19">19</option>
-                    <option value="20">20</option>
-                    <option value="21">21</option>
-                    <option value="22">22</option>
-                    <option value="23">23</option>
-                    <option value="24">24</option>
-                </select>
 
-                @if (
-                    dialogClientForm.controls.purchaseFrequency.invalid && dialogClientForm.controls.purchaseFrequency.touched
-                ) {
-                    <span class="error">Purchase Frequency is required.</span>
-                }
+
+                <div class="checkbox-container">
+                
+                    <select id="purchaseFrequency" formControlName="purchaseFrequency" style="cursor: pointer;">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>
+                        <option value="10">10</option>
+                        <option value="11">11</option>
+                        <option value="12">12</option>
+                        <option value="13">13</option>
+                        <option value="14">14</option>
+                        <option value="15">15</option>
+                        <option value="16">16</option>
+                        <option value="17">17</option>
+                        <option value="18">18</option>
+                        <option value="19">19</option>
+                        <option value="20">20</option>
+                        <option value="21">21</option>
+                        <option value="22">22</option>
+                        <option value="23">23</option>
+                        <option value="24">24</option>
+                    </select>
+
+                    @if (
+                        dialogClientForm.controls.purchaseFrequency.invalid && dialogClientForm.controls.purchaseFrequency.touched
+                    ) {
+                        <span class="error">Purchase Frequency is required.</span>
+                    }
+
+                    <mat-checkbox (change)="onCheckboxChange($event.checked)">
+                        Não Informou
+                    </mat-checkbox>
+
+                </div>
+
             </div>
 
             <div class="actions">

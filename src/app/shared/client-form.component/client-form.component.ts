@@ -79,6 +79,14 @@ export class ClientFormComponent {
       return;
     }
 
+    const dateSelected: Date | null = this.clientForm.value.lastBuy
+      ? new Date(this.clientForm.value.lastBuy)
+      : null;
+    if (dateSelected) {
+      const year = dateSelected.getFullYear();
+      const month = (dateSelected.getMonth() + 1).toString().padStart(2, '0');
+      const ISOFormatDate = `${year}-${month}`;
+    }
     const clientData: Client = {
       cnpj: this.clientForm.value.cnpj || '',
       cep: this.clientForm.value.cep || '',
@@ -112,7 +120,7 @@ export class ClientFormComponent {
       deliveryEmail: this.clientForm.value.deliveryEmail || '',
       deliveryTime: this.clientForm.value.deliveryTime || '',
       purchaseFrequency: this.clientForm.value.purchaseFrequency || 0,
-      lastBuy: this.clientForm.value.lastBuy || '',
+      lastBuy: this.clientForm.value.lastBuy?.toString() || '',
     };
 
     if (this.clientSelectedId) {
@@ -201,6 +209,10 @@ export class ClientFormComponent {
         }
       }),
       catchError((error) => {
+        if (error.status === 404) {
+          console.log('Client not found'); //Apagar linha
+          return of(false);
+        }
         console.error('Error searching client by Cnpj:', error);
         return of(false);
       }),
@@ -226,12 +238,13 @@ export class ClientFormComponent {
       return;
     }
 
-    this.cnpjSearch(cnpj).subscribe((cnpjTest: boolean) => {
+    const cnpjFormatted = cnpj.trim().replace(/[^a-zA-Z0-9]/g, '');
+    this.cnpjSearch(cnpjFormatted).subscribe((cnpjTest: boolean) => {
       if (cnpjTest) {
         alert('CNPJ já cadastrado!');
         this.resetForm();
       } else {
-        this.clientService.getDataCnpj(cnpj).subscribe({
+        this.clientService.getDataCnpj(cnpjFormatted).subscribe({
           next: (data: DataCnpjDTO) => {
             this.clientForm.patchValue({
               cnpj: data.cnpj,
@@ -246,7 +259,11 @@ export class ClientFormComponent {
             });
           },
           error: (error: any) => {
-            console.error('Error fetching CNPJ data:', error);
+            if (error.status === 404) {
+              alert('CNPJ não encontrado na base de dados da Receita Federal.');
+            } else {
+              alert('Erro ao consultar CNPJ. Por favor, tente novamente mais tarde.');
+            }
           },
         });
       }
