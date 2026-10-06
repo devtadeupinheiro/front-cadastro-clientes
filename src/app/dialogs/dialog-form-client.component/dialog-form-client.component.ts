@@ -4,8 +4,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { ClientFormComponent } from '@app/shared/client-form.component/client-form.component';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatTimepickerModule } from '@angular/material/timepicker';
-import { FormControl } from '@angular/forms';
-import { MatDatepicker, MatDatepickerModule } from '@angular/material/datepicker';
+import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import {
@@ -66,8 +65,21 @@ export class DialogFormClientComponent extends ClientFormComponent {
   }
 
   saveCompleteClient(): void {
-    this.saveClient();
-    this.matDialog.closeAll();
+    super.saveClient().subscribe({
+      next: (saveClient) => {
+        alert('Cliente salvo com sucesso!');
+        this.matDialog.closeAll();
+      },
+      error: (error) => {
+        if (error.message === 'FORM_INVALID') {
+          alert(
+            'Formulário inválido. Por favor, preencha todos os campos obrigatórios ou corrija os valores.',
+          );
+        } else {
+          console.error('Error saving client:', error);
+        }
+      },
+    });
   }
 
   override deleteClient(clientId: number): void {
@@ -103,10 +115,10 @@ export class DialogFormClientComponent extends ClientFormComponent {
     }
   }
 
-  dateControl = new FormControl(new Date());
   maxDate = new Date();
   chosenMonthHandler(normalizedMonth: Date, datepicker: any) {
-    this.dateControl.setValue(normalizedMonth);
+    this.dialogClientForm.get('lastBuy')?.setValue(normalizedMonth as any);
+    this.dialogClientForm.get('lastBuy')?.markAsTouched();
     datepicker.close();
   }
 }

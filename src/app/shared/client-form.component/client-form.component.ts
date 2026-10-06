@@ -6,7 +6,8 @@ import { MatDialog } from '@angular/material/dialog';
 import { ClientService } from '@services/client.service';
 import { Client } from '@models/client';
 import { DataCnpjDTO } from '@models/data-cnpj-dto';
-import { catchError, map, Observable, of } from 'rxjs';
+import { catchError, map, Observable, of, throwError } from 'rxjs';
+import { tap } from 'rxjs/operators';
 
 import { isCNPJ } from 'validation-br';
 
@@ -73,19 +74,21 @@ export class ClientFormComponent {
     );
   }
 
-  saveClient(): void {
+  saveClient(): Observable<Client> {
     if (this.clientForm.invalid) {
       this.clientForm.markAllAsTouched();
-      return;
+      return throwError(() => new Error('FORM_INVALID'));
     }
 
     const dateSelected: Date | null = this.clientForm.value.lastBuy
       ? new Date(this.clientForm.value.lastBuy)
       : null;
+
+    let ISOFormatDate: string | null = null;
     if (dateSelected) {
       const year = dateSelected.getFullYear();
       const month = (dateSelected.getMonth() + 1).toString().padStart(2, '0');
-      const ISOFormatDate = `${year}-${month}`;
+      ISOFormatDate = `${year}-${month}`;
     }
     const clientData: Client = {
       cnpj: this.clientForm.value.cnpj || '',
@@ -120,32 +123,36 @@ export class ClientFormComponent {
       deliveryEmail: this.clientForm.value.deliveryEmail || '',
       deliveryTime: this.clientForm.value.deliveryTime || '',
       purchaseFrequency: this.clientForm.value.purchaseFrequency || 0,
-      lastBuy: this.clientForm.value.lastBuy?.toString() || '',
+      lastBuy: ISOFormatDate || '',
     };
 
     if (this.clientSelectedId) {
       // Update existing client
-      this.clientService.updateClient(this.clientSelectedId, clientData).subscribe(
-        (updatedClient: Client) => {
-          console.log('Client updated:', updatedClient);
-          this.loadClients();
-          this.resetForm();
-        },
-        (error: any) => {
-          console.error('Error updating client:', error);
-        },
+      return this.clientService.updateClient(this.clientSelectedId, clientData).pipe(
+        tap({
+          next: (updatedClient: Client) => {
+            console.log('Client updated:', updatedClient);
+            this.loadClients();
+            this.resetForm();
+          },
+          error: (error: any) => {
+            console.error('Error updating client:', error);
+          },
+        }),
       );
     } else {
       // Create new client
-      this.clientService.createClient(clientData).subscribe(
-        (newClient: Client) => {
-          console.log('Client created:', newClient);
-          this.loadClients();
-          this.resetForm();
-        },
-        (error: any) => {
-          console.error('Error creating client:', error);
-        },
+      return this.clientService.createClient(clientData).pipe(
+        tap({
+          next: (newClient: Client) => {
+            console.log('Client created:', newClient);
+            this.loadClients();
+            this.resetForm();
+          },
+          error: (error: any) => {
+            console.error('Error creating client:', error);
+          },
+        }),
       );
     }
   }

@@ -384,7 +384,7 @@
                 
                 <label>Última Compra</label>
                 <section id="lastBuy">
-                    <input matInput [matDatepicker]="dp" [formControl]="dateControl" [max]="maxDate" readonly (click)="dp.open()" style="cursor: pointer;">
+                    <input matInput [matDatepicker]="dp" formControlName="lastBuy" [max]="maxDate" readonly (click)="dp.open()" style="cursor: pointer;">
                     <mat-datepicker-toggle matSuffix [for]="dp"></mat-datepicker-toggle>
                     <mat-datepicker #dp
                                     startView="year"
@@ -449,8 +449,8 @@
 
             <div class="actions">
 
-                <button type="button" (click)="saveClient()">
-                    {{ dialogClientSelectedId ? 'Atualizar Cliente' : 'Criar Cliente' }}
+                <button type="button" (click)="saveCompleteClient()">
+                    {{ dialogClientSelectedId ? 'Atualizar' : 'Salvar' }}
                 </button>
                 <button type="button" (click)="resetForm()">Limpar Formulário</button>
 
