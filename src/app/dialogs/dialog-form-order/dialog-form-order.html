@@ -1,0 +1,39 @@
+<section class="card">
+        <h2>
+            {{ dialogOrderSelectedId ? 'Editar Ordem' : 'Criar Ordem' }}
+        </h2>
+
+        <form [formGroup]="dialogOrderForm">
+
+            <!--configurar-->
+            <div class="place">
+
+                <label for="dataIda">Ida:</label>
+                <input type="datetime-local" id="dataIda" formControlName="dataIda">
+
+                @if (
+                    dialogOrderForm.controls.dataIda.invalid
+                     && dialogOrderForm.controls.dataIda.touched
+                ) {
+                    <span class="error">Data de ida is required.</span>
+                }
+
+            </div>
+            
+            <div class="actions">
+
+                <button type="button" (click)="saveCompleteOrder()">
+                    {{ dialogOrderSelectedId ? 'Atualizar' : 'Salvar' }}
+                </button>
+                <button type="button" (click)="resetForm()">Limpar Formulário</button>
+
+                @if (dialogOrderSelectedId) {
+                    <button type="button" class="btn-cancel" (click)="matDialog.closeAll()">Cancelar</button>
+                } @else {
+                    <button type="button" class="btn-cancel" (click)="matDialog.closeAll()">Fechar</button>
+                }
+
+            </div>
+        </form>
+
+    </section>

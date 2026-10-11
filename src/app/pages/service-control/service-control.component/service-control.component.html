@@ -1,0 +1,59 @@
+<div class="container">
+  
+    <h1>Ordens de Serviço</h1>
+
+    <div id="div-btn-new">
+            <button type="button" id="btn-new" (click)="openDialogFormOrder()">+Novo</button>
+    </div>
+    
+    <section class="card">
+
+        @if (orders.length === 0) {
+
+            <p>Não existem ordens de serviço cadastradas.</p>
+
+        } @else {
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>Data Ida</th>
+                        <th>Prestador</th>
+                        <th>Quantidade</th>
+                        <th>Peça</th>
+                        <th>Preço</th>
+                        <th>Total</th>
+                        <th>Nº Pedido</th>
+                        <th>Status</th>
+                    <!--Ficou de fora dataVolta e dataPgto-->
+                    </tr>
+                </thead>
+                <tbody>
+                    @for (order of orders; track order.id) {
+                        <tr>
+                            <td>{{ order.dataIda }}</td>
+                            <td>{{ order.terceirizado }}</td>
+                            <td>{{ order.quantidade }}</td>
+                            <td>{{ order.peca }}</td>
+                            <td>{{ order.preco }}</td>
+                            <td>{{ order.total }}</td>
+                            <td>{{ order.pedido }}</td>
+                            <td>{{ order.status }}</td>
+                            <td>
+                                @if (!order.id === null || order.id === undefined) {
+                                    <span class="error">Order ID is null.</span>
+                                } @else {
+                                <button type="button" class="btn-actions" (click)="editOrder(order.id)">Editar</button>
+                                <button type="button" class="btn-actions" id="btn-delete" (click)="deleteOrder(order.id)">Excluir</button>
+                                }
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>       
+        }
+    </section>
+    <section class="footer">
+        <span>Copyright © 2023 UNIWORK. Todos os direitos reservados.</span>
+    </section>
+</div>
