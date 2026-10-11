@@ -5,17 +5,138 @@
 
         <form [formGroup]="dialogOrderForm">
 
-            <!--configurar-->
+            <!--Data Ida-->
             <div class="place">
 
                 <label for="dataIda">Ida:</label>
-                <input type="datetime-local" id="dataIda" formControlName="dataIda">
+                <input type="date" id="dataIda" formControlName="dataIda">
 
                 @if (
                     dialogOrderForm.controls.dataIda.invalid
                      && dialogOrderForm.controls.dataIda.touched
                 ) {
-                    <span class="error">Data de ida is required.</span>
+                    <span class="error">Data de ida é obrigatória.</span>
+                }
+
+            </div>
+
+            <!--Terceirizado-->
+            <div class="place">
+
+                <label for="terceirizado">Prestador:</label>
+                <input type="text" id="terceirizado" formControlName="terceirizado">
+
+                @if (
+                    dialogOrderForm.controls.terceirizado.invalid
+                     && dialogOrderForm.controls.terceirizado.touched
+                ) {
+                    <span class="error">Prestador é obrigatório.</span>
+                }
+
+            </div>
+
+            <!--Quantidade-->
+            <div class="place">
+
+                <label for="quantidade">Quantidade:</label>
+                <input type="number" id="quantidade" formControlName="quantidade" min="1">
+
+                @if (
+                    dialogOrderForm.controls.quantidade.invalid
+                     && dialogOrderForm.controls.quantidade.touched
+                ) {
+                    <span class="error">Quantidade é obrigatória.</span>
+                }
+
+            </div>
+
+            <!--Peça-->
+            <div class="place">
+
+                <label for="peca">Peça:</label>
+                <input type="text" id="peca" formControlName="peca">
+
+                @if (
+                    dialogOrderForm.controls.peca.invalid
+                     && dialogOrderForm.controls.peca.touched
+                ) {
+                    <span class="error">Peça é obrigatória.</span>
+                }
+
+            </div>
+
+            <!--Preço-->
+            <div class="place">
+
+                <label for="preco">Preço:</label>
+                <input type="number" id="preco" formControlName="preco" step="0.01" min="0">
+
+                @if (
+                    dialogOrderForm.controls.preco.invalid
+                     && dialogOrderForm.controls.preco.touched
+                ) {
+                    <span class="error">Preço é obrigatório.</span>
+                }
+
+            </div>
+
+            <!--Cliente-->
+            <div class="place">
+
+                <label for="cliente">Cliente:</label>
+                <input type="text" id="cliente" formControlName="cliente">
+
+                @if (
+                    dialogOrderForm.controls.cliente.invalid
+                     && dialogOrderForm.controls.cliente.touched
+                ) {
+                    <span class="error">Cliente é obrigatório.</span>
+                }
+
+            </div>
+
+            <!--Nº Pedido-->
+            <div class="place">
+
+                <label for="pedido">Nº Pedido:</label>
+                <input type="text" id="pedido" formControlName="pedido">
+
+                @if (
+                    dialogOrderForm.controls.pedido.invalid
+                     && dialogOrderForm.controls.pedido.touched
+                ) {
+                    <span class="error">Nº Pedido é obrigatório.</span>
+                }
+
+            </div>
+
+            <!--Status-->
+            <div class="place">
+
+                <label for="status">Status:</label>
+                <select id="status" formControlName="status">
+
+                    @for (status of listStatus; track status.name) {
+                        <option [value]="status.name">
+                            {{ status.description }}
+                        </option>
+                    }
+
+                </select>
+
+            </div>
+
+            <!--Data Volta-->
+            <div class="place">
+
+                <label for="dataVolta">Volta:</label>
+                <input type="date" id="dataVolta" formControlName="dataVolta">
+
+                @if (
+                    dialogOrderForm.controls.dataVolta.invalid
+                     && dialogOrderForm.controls.dataVolta.touched
+                ) {
+                    <span class="error">Data de volta is required.</span>
                 }
 
             </div>

@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { inject } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
@@ -7,6 +7,7 @@ import { OrderService } from '@services/order.service/order.service';
 import { Order } from '@models/order';
 import { Observable, throwError } from 'rxjs';
 import { tap } from 'rxjs/operators';
+import { OrderStatus } from '@models/order-status';
 
 @Component({
   selector: 'app-order-form.component',
@@ -14,14 +15,20 @@ import { tap } from 'rxjs/operators';
   templateUrl: './order-form.component.html',
   styleUrl: './order-form.component.scss',
 })
-export class OrderFormComponent {
+export class OrderFormComponent implements OnInit {
   protected fb = inject(FormBuilder);
   protected orderService = inject(OrderService);
   protected matDialog = inject(MatDialog);
   protected cdr = inject(ChangeDetectorRef);
 
+  ngOnInit(): void {
+    this.loadOrders();
+    this.getListOrderStatus();
+  }
+
   orders: Order[] = [];
   orderSelectedId: number | null = null;
+  listOrderStatus: OrderStatus[] = [];
 
   orderForm = this.fb.group({
     dataIda: ['', Validators.required],
@@ -103,5 +110,17 @@ export class OrderFormComponent {
   resetForm(): void {
     this.orderForm.reset();
     this.orderSelectedId = null;
+  }
+
+  getListOrderStatus(): void {
+    this.orderService.listStatusOrders().subscribe(
+      (statusList: OrderStatus[]) => {
+        this.listOrderStatus = statusList;
+        this.cdr.detectChanges();
+      },
+      (error: any) => {
+        console.error('Error loading order status list:', error);
+      },
+    );
   }
 }
