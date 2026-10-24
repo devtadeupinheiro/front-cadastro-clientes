@@ -3,7 +3,7 @@ import { inject } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 
-import { ClientService } from '@services/client.service';
+import { ClientService } from '@services/client/client.service';
 import { Client } from '@models/client';
 import { DataCnpjDTO } from '@models/data-cnpj-dto';
 import { catchError, map, Observable, of, throwError } from 'rxjs';

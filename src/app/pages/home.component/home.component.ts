@@ -3,7 +3,7 @@ import { RouterOutlet } from '@angular/router';
 import { OnInit } from '@angular/core';
 import { inject } from '@angular/core';
 import { Client } from '@models/client';
-import { ClientService } from '@services/client.service';
+import { ClientService } from '@services/client/client.service';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogDataOutput } from '@app/dialogs/dialog-data-output/dialog-data-output';
 

@@ -1,0 +1,13 @@
+<header class="app-header">
+  <div class="logo">
+    <h1>Cabeçalho com botão logout</h1>
+  </div>
+  
+  <!-- O bloco abaixo só existe na tela se o usuário estiver logado -->
+  @if (autenticated()) {
+    <nav class="user-nav">
+      <span>Bem-vindo!</span>
+      <button class="btn-logout" (click)="exit()">Sair</button>
+    </nav>
+  }
+</header>

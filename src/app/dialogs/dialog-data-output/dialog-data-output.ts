@@ -1,7 +1,7 @@
 import { ChangeDetectorRef, Component, Inject, OnInit, inject } from '@angular/core';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ClientResumeOutput } from '@models/output/client-resume-output';
-import { ClientService } from '@services/client.service';
+import { ClientService } from '@services/client/client.service';
 import { MatDialog } from '@angular/material/dialog';
 
 @Component({

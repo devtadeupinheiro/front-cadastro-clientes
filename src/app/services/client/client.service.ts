@@ -2,8 +2,8 @@ import { Service, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
-import { Client } from '../models/client';
-import { DataCnpjDTO } from '../models/data-cnpj-dto';
+import { Client } from '../../models/client';
+import { DataCnpjDTO } from '../../models/data-cnpj-dto';
 import { ClientResumeOutput } from '@models/output/client-resume-output';
 
 @Service()
