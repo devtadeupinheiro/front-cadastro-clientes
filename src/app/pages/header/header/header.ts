@@ -15,6 +15,9 @@ export class HeaderComponent {
   // Expõe o Signal para o template ler
   autenticated = this.authService.autenticated;
 
+  //Expóe o movo signal para o usuário
+  user = this.authService.loggedUser;
+
   exit(): void {
     this.authService.logout(); // Limpa o token e muda o Signal para false
     this.router.navigate(['/login']); // Redireciona para a tela inicial

@@ -1,6 +1,7 @@
 import { Injectable, inject, signal } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, tap } from 'rxjs';
+import { jwtDecode } from 'jwt-decode';
 
 @Injectable({
   providedIn: 'root',
@@ -12,6 +13,8 @@ export class AuthService {
 
   // Angular 22: Signal que guarda o status de login para atualizar a UI instantaneamente
   autenticated = signal<boolean>(this.hasToken());
+
+  loggedUser = signal<string | null>(this.extractUserFromToken(this.getToken()));
 
   login(credentials: { email: string; passwordUser: string }): Observable<{ token: string }> {
     return this.http
@@ -32,6 +35,7 @@ export class AuthService {
   private saveToken(token: string): void {
     localStorage.setItem(this.tokenKey, token);
     this.autenticated.set(true); // Atualiza o signal globalmente
+    this.loggedUser.set(this.extractUserFromToken(token)); // Atualiza o signal com o e-mail logo após salvar o token
   }
 
   getToken(): string | null {
@@ -41,9 +45,22 @@ export class AuthService {
   logout(): void {
     localStorage.removeItem(this.tokenKey);
     this.autenticated.set(false);
+    this.loggedUser.set(null); // Limpa o e-mail do usuário ao fazer logout
   }
 
   private hasToken(): boolean {
     return localStorage.getItem(this.tokenKey) !== null;
+  }
+
+  private extractUserFromToken(token: string | null): string | null {
+    if (!token) return null;
+
+    try {
+      const decodedToken: any = jwtDecode(token);
+      return decodedToken.name || decodedToken.sub;
+    } catch (error) {
+      console.error('Erro ao decodificar o token', error);
+      return null;
+    }
   }
 }

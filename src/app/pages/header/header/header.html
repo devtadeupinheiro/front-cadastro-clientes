@@ -6,7 +6,7 @@
   <!-- O bloco abaixo só existe na tela se o usuário estiver logado -->
   @if (autenticated()) {
     <nav class="user-nav">
-      <span>Bem-vindo!</span>
+      <span>Olá, {{ user() }}</span>
       <button class="btn-logout" (click)="exit()">Sair</button>
     </nav>
   }
